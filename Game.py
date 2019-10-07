@@ -1,5 +1,5 @@
 class Game:
-
+ 
     def __init__(self, matchID, localTeam, visitTeam, date, time, location, result, pitcherLocal, pitcherVisit, lineupBatLocal, lineupBatVisit, runs, hits, errors, prediction):
         self.gameID = gameID
         self.localTeam = localTeam

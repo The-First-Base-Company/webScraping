@@ -1,5 +1,5 @@
 #INSERT INTO 'PLAYER' ('Name') VALUES (NULL, 'Juan')
-
+ 
 import os
 import time
 import datetime

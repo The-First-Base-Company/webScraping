@@ -1,4 +1,4 @@
-class Team:
+class Team: 
 
     def __init__(self, teamID, name, conference, division, rank, wins, losses, location):
         self.teamID = teamID

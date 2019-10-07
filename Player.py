@@ -1,5 +1,5 @@
 class Player:
-
+ 
     def __init__(self, playerID, firstN, lastN, age, positi, team, hit, pitch, field, rank):
         self.playerID = playerID
         self.firstN = firstN
