@@ -8,4 +8,4 @@ Este programa regresa los datos categorizados en 3 tablas diferentes con extensi
 
 ## Instrucciones
 
-Para utilizar este programa es necesario agregar la dirección de ```geckodriver.exe``` a tu variable ```PATH```
+Para utilizar este programa es necesario agregar la dirección de ```geckodriver.exe``` a tu variable de sistema ```PATH```

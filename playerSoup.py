@@ -5,6 +5,10 @@ import selenium
 from selenium import webdriver
 import time
 
+getPlayerHitting()
+getPlayerPitching()
+getPlayerFielding()
+
 def getPlayerHitting():
     
     print("getting player hitting stats ...")
@@ -387,7 +391,3 @@ def getPlayerFielding():
 
     f.close()
     browser.close()
-
-getPlayerHitting()
-getPlayerPitching()
-getPlayerFielding()
