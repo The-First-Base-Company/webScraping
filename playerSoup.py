@@ -5,10 +5,6 @@ import selenium
 from selenium import webdriver
 import time
 
-getPlayerHitting()
-getPlayerPitching()
-getPlayerFielding()
-
 def getPlayerHitting():
     
     print("getting player hitting stats ...")
@@ -253,11 +249,9 @@ def getPlayerFielding():
         whip = row.find_all('td', {'class': 'dg-rf'})
 
         f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')    
-        
-    f.close()
-    browser.close()
-
+    
     secondPage = browser.find_elements_by_xpath('/html/body/div[2]/div/div[3]/div/div[1]/div[11]/fieldset/button[4]')
+    print(secondPage)
     secondPage[0].click()
 
     time.sleep(3)
@@ -288,7 +282,7 @@ def getPlayerFielding():
         dgavg = row.find_all('td', {'class': 'dg-fpct'})
         whip = row.find_all('td', {'class': 'dg-rf'})
 
-        f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
+        f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n') 
 
     thirdPage = browser.find_elements_by_xpath('/html/body/div[2]/div/div[3]/div/div[1]/div[11]/fieldset/button[4]')
     thirdPage[0].click()
@@ -391,3 +385,7 @@ def getPlayerFielding():
 
     f.close()
     browser.close()
+
+#getPlayerHitting()
+#getPlayerPitching()
+getPlayerFielding()
