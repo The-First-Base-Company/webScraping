@@ -91,6 +91,9 @@ def getTeamPitching():
 
         f.write(rank[0].text + ',' + '"' + team[0].a.text + '"' + ',' + league[0].text + ',' + w[0].text + ',' + l[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + ip[0].text + ',' + h[0].text + ',' + r[0].text + ',' + er[0].text + ',' + hr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + avg[0].text + ',' + whip[0].text + '\n')
 
+    f.close()
+    browser.close()
+
 def getTeamFielding():
     print("getting team pitching stats ...")
 
@@ -130,6 +133,9 @@ def getTeamFielding():
         der = row.find_all('td', {'class':'dg-der'})
 
         f.write(rank[0].text + ',' + '"' + team[0].a.text + '"' + ',' + league[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + inn[0].text + ',' + tc[0].text + ',' + po[0].text + ',' + a[0].text + ',' + e[0].text + ',' + dp[0].text + ',' + sb[0].text + ',' + cs[0].text + ',' + sbpct[0].text + ',' + pb[0].text + ',' + c_wp[0].text + ',' + fpct[0].text + ',' + der[0].text + '\n')
+
+    f.close()
+    browser.close()
 
 getTeamHitting()
 getTeamPitching()
