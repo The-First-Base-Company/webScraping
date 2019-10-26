@@ -3,4 +3,5 @@ main.py
 Player.py
 Team.py
 test.py
-.csv
+*.csv
+*.log
