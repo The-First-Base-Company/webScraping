@@ -545,5 +545,5 @@ def getPlayerFielding():
 
 
 getPlayerHitting()
-getPlayerPitching()
-getPlayerFielding()
+#getPlayerPitching()
+#getPlayerFielding()

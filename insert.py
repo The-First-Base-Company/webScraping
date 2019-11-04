@@ -13,14 +13,14 @@ def playerHitting(db, *args):
     id = mylist[0].replace(",", "").split()
     id = id[1] + id[0] + mylist[1]
 
-    insertPlayer = "INSERT INTO jugador VALUES (\"%s\", \"%s\", \"%s\", \"%s\");" % (
+    insertPlayer = "INSERT INTO player VALUES (\"%s\", \"%s\", \"%s\", \"%s\");" % (
         id,
         mylist[0],
         mylist[1],
         mylist[2],
     )
 
-    insertPlayerStats = "INSERT INTO jugadorstats VALUES (\"%s\", \"HITTING\", %s, %s, %s, %s, %s, %s, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" % (
+    insertPlayerStats = "INSERT INTO playerstats VALUES (\"%s\", \"HITTING\", %s, %s, %s, %s, %s, %s, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" % (
         id,
         mylist[3],
         mylist[4],
@@ -30,6 +30,9 @@ def playerHitting(db, *args):
         mylist[8],
         mylist[9],
     )
+
+    print(insertPlayer)
+    print(insertPlayerStats)
 
     try:
         cursor.execute(insertPlayer)
@@ -52,13 +55,13 @@ def playerPitching(db, *args):
     id = mylist[0].replace(",", "").split()
     id = id[1] + id[0] + mylist[1]
 
-    insertPlayer = "INSERT INTO jugador VALUES (\"%s\", \"%s\", \"%s\", \"P\");" % (
+    insertPlayer = "INSERT INTO player VALUES (\"%s\", \"%s\", \"%s\", \"P\");" % (
         id,
         mylist[0],
         mylist[1],
     )
 
-    insertPlayerStats = "INSERT INTO jugadorstats VALUES (\"%s\", \"PITCHING\", %s, %s, %s, NULL, %s, %s, %s, %s, %s, NULL, NULL, NULL, NULL, NULL);" % (
+    insertPlayerStats = "INSERT INTO playerstats VALUES (\"%s\", \"PITCHING\", %s, %s, %s, NULL, %s, %s, %s, %s, %s, NULL, NULL, NULL, NULL, NULL);" % (
         id,
         mylist[2],
         mylist[3],
@@ -91,14 +94,14 @@ def playerFielding(db, *args):
     id = mylist[0].replace(",", "").split()
     id = id[1] + id[0] + mylist[1]
 
-    insertPlayer = "INSERT INTO jugador VALUES (\"%s\", \"%s\", \"%s\", \"%s\");" % (
+    insertPlayer = "INSERT INTO player VALUES (\"%s\", \"%s\", \"%s\", \"%s\");" % (
         id,
         mylist[0],
         mylist[1],
         mylist[2],
     )
 
-    insertPlayerStats = "INSERT INTO jugadorstats VALUES (\"%s\", \"FIELDING\", %s, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL, %s, %s, %s, %s, %s);" % (
+    insertPlayerStats = "INSERT INTO playerstats VALUES (\"%s\", \"FIELDING\", %s, %s, NULL, NULL, NULL, NULL, NULL, NULL, NULL, %s, %s, %s, %s, %s);" % (
         id,
         mylist[3],
         mylist[4],
