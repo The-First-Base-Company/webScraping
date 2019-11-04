@@ -56,10 +56,19 @@ def getPlayerHitting():
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + pos[0].text + ',' + noJuegos[0].text + ',' + ab[0].text + ',' + carreras[0].text + ',' + hits[0].text + ',' + doble[0].text + ',' + triple[0].text + ',' + homeRuns[0].text + ',' + impulsadas[0].text + ',' + baseXbola[0].text + ',' + strikeout[0].text + ',' + baseRobada[0].text + ',' + caught[0].text + ',' + avgHits[0].text + ',' + onBasePercent[0].text + ',' + sluggingPercent[0].text + ',' + sumaPercent[0].text + '\n')
 
-        insert.playerHitting(db, jugador[0].a.text, equipo[0].text,
-                             pos[0].text, noJuegos[0].text, avgHits[0].text,
-                             ab[0].text, carreras[0].text, hits[0].text,
-                             homeRuns[0].text)
+        insert.playerHitting(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            noJuegos[0].text,
+            avgHits[0].text,
+            ab[0].text,
+            carreras[0].text,
+            hits[0].text,
+            homeRuns[0].text,
+        )
 
     print('loading second page ...')
 
@@ -98,10 +107,19 @@ def getPlayerHitting():
         sumaPercent = row.find_all('td', {'class': 'dg-ops'})
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + pos[0].text + ',' + noJuegos[0].text + ',' + ab[0].text + ',' + carreras[0].text + ',' + hits[0].text + ',' + doble[0].text + ',' + triple[0].text + ',' + homeRuns[0].text + ',' + impulsadas[0].text + ',' + baseXbola[0].text + ',' + strikeout[0].text + ',' + baseRobada[0].text + ',' + caught[0].text + ',' + avgHits[0].text + ',' + onBasePercent[0].text + ',' + sluggingPercent[0].text + ',' + sumaPercent[0].text + '\n')
-        insert.playerHitting(db, jugador[0].a.text, equipo[0].text,
-                             pos[0].text, noJuegos[0].text, avgHits[0].text,
-                             ab[0].text, carreras[0].text, hits[0].text,
-                             homeRuns[0].text)
+        insert.playerHitting(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            noJuegos[0].text,
+            avgHits[0].text,
+            ab[0].text,
+            carreras[0].text,
+            hits[0].text,
+            homeRuns[0].text,
+        )
     print('loading third page ...')
 
     thirdPage = browser.find_elements_by_xpath(
@@ -139,19 +157,28 @@ def getPlayerHitting():
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + pos[0].text + ',' + noJuegos[0].text + ',' + ab[0].text + ',' + carreras[0].text + ',' + hits[0].text + ',' + doble[0].text + ',' + triple[0].text + ',' + homeRuns[0].text + ',' + impulsadas[0].text + ',' + baseXbola[0].text + ',' + strikeout[0].text + ',' + baseRobada[0].text + ',' + caught[0].text + ',' + avgHits[0].text + ',' + onBasePercent[0].text + ',' + sluggingPercent[0].text + ',' + sumaPercent[0].text + '\n')
 
-        insert.playerHitting(db, jugador[0].a.text, equipo[0].text,
-                             pos[0].text, noJuegos[0].text, avgHits[0].text,
-                             ab[0].text, carreras[0].text, hits[0].text,
-                             homeRuns[0].text)
+        insert.playerHitting(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            noJuegos[0].text,
+            avgHits[0].text,
+            ab[0].text,
+            carreras[0].text,
+            hits[0].text,
+            homeRuns[0].text,
+        )
 
     #f.close()
     browser.close()
     db.close()
 
 
-#get headers
-#complete f.write
 def getPlayerPitching():
+
+    db = pymysql.connect("localhost", "root", "", "firstbase")
 
     print("getting player pitching stats ...")
 
@@ -182,16 +209,30 @@ def getPlayerPitching():
         sv = row.find_all('td', {'class': 'dg-sv'})
         svo = row.find_all('td', {'class': 'dg-svo'})
         dfip = row.find_all('td', {'class': 'dg-ip'})
-        dgh = row.find_all('td', {'class': 'dg-h'})
-        dgr = row.find_all('td', {'class': 'dg-r'})
+        h = row.find_all('td', {'class': 'dg-h'})
+        r = row.find_all('td', {'class': 'dg-r'})
         dger = row.find_all('td', {'class': 'dg-er'})
-        dghr = row.find_all('td', {'class': 'dg-hr'})
+        hr = row.find_all('td', {'class': 'dg-hr'})
         bb = row.find_all('td', {'class': 'dg-bb'})
         so = row.find_all('td', {'class': 'dg-so'})
         dgavg = row.find_all('td', {'class': 'dg-avg'})
         whip = row.find_all('td', {'class': 'dg-whip'})
 
-        #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' +era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
+        #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' +era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + h[0].text + ',' + r[0].text + ',' + dger[0].text + ',' + hr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
+
+        insert.playerPitching(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            rank[0].text,
+            g[0].text,
+            dgavg[0].text,
+            r[0].text,
+            h[0].text,
+            hr[0].text,
+            victoria[0].text,
+            derrota[0].text,
+        )
 
     print('loading second page ...')
 
@@ -229,11 +270,28 @@ def getPlayerPitching():
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' +era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
 
+        insert.playerPitching(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            rank[0].text,
+            g[0].text,
+            dgavg[0].text,
+            r[0].text,
+            h[0].text,
+            hr[0].text,
+            victoria[0].text,
+            derrota[0].text,
+        )
     #f.close()
     browser.close()
+    db.close()
 
 
 def getPlayerFielding():
+
+    db = pymysql.connect("localhost", "root", "", "firstbase")
+
     print("getting player fielding stats ...")
 
     #fileName = 'playerFielding.csv'
@@ -255,24 +313,38 @@ def getPlayerFielding():
         rank = row.find_all('td', {'class': 'dg-rank'})
         jugador = row.find_all('td', {'class': 'dg-name_display_last_init'})
         equipo = row.find_all('td', {'class': 'dg-team_abbrev'})
-        victoria = row.find_all('td', {'class': 'dg-position'})
-        derrota = row.find_all('td', {'class': 'dg-g'})
+        pos = row.find_all('td', {'class': 'dg-position'})
+        juegos = row.find_all('td', {'class': 'dg-g'})
         era = row.find_all('td', {'class': 'dg-gs'})
         g = row.find_all('td', {'class': 'dg-inn'})
-        gs = row.find_all('td', {'class': 'dg-tc'})
-        sv = row.find_all('td', {'class': 'dg-po'})
-        svo = row.find_all('td', {'class': 'dg-a'})
-        dfip = row.find_all('td', {'class': 'dg-e'})
+        chances = row.find_all('td', {'class': 'dg-tc'})
+        putout = row.find_all('td', {'class': 'dg-po'})
+        assists = row.find_all('td', {'class': 'dg-a'})
+        errors = row.find_all('td', {'class': 'dg-e'})
         dgh = row.find_all('td', {'class': 'dg-dp'})
         dgr = row.find_all('td', {'class': 'dg-sb'})
         dger = row.find_all('td', {'class': 'dg-cs'})
         dghr = row.find_all('td', {'class': 'dg-sbpct'})
         bb = row.find_all('td', {'class': 'dg-pb'})
         so = row.find_all('td', {'class': 'dg-c_wp'})
-        dgavg = row.find_all('td', {'class': 'dg-fpct'})
+        fpct = row.find_all('td', {'class': 'dg-fpct'})
         whip = row.find_all('td', {'class': 'dg-rf'})
 
-        #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
+        #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + pos[0].text + ',' + juegos[0].text + ',' + era[0].text + ',' + g[0].text + ',' + chances[0].text + ',' + putout[0].text + ',' + assists[0].text + ',' + errors[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + fpct[0].text + ',' + whip[0].text + '\n')
+
+        insert.playerFielding(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            juegos[0].text,
+            chances[0].text,
+            putout[0].text,
+            assists[0].text,
+            errors[0].text,
+            fpct[0].text,
+        )
 
     secondPage = browser.find_elements_by_xpath(
         '/html/body/div[2]/div/div[3]/div/div[1]/div[11]/fieldset/button[4]')
@@ -309,6 +381,20 @@ def getPlayerFielding():
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
 
+        insert.playerFielding(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            juegos[0].text,
+            chances[0].text,
+            putout[0].text,
+            assists[0].text,
+            errors[0].text,
+            fpct[0].text,
+        )
+
     thirdPage = browser.find_elements_by_xpath(
         '/html/body/div[2]/div/div[3]/div/div[1]/div[11]/fieldset/button[4]')
     thirdPage[0].click()
@@ -342,6 +428,20 @@ def getPlayerFielding():
         whip = row.find_all('td', {'class': 'dg-rf'})
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
+
+        insert.playerFielding(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            juegos[0].text,
+            chances[0].text,
+            putout[0].text,
+            assists[0].text,
+            errors[0].text,
+            fpct[0].text,
+        )
 
     fourthPage = browser.find_elements_by_xpath(
         '/html/body/div[2]/div/div[3]/div/div[1]/div[11]/fieldset/button[4]')
@@ -377,6 +477,20 @@ def getPlayerFielding():
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
 
+        insert.playerFielding(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            juegos[0].text,
+            chances[0].text,
+            putout[0].text,
+            assists[0].text,
+            errors[0].text,
+            fpct[0].text,
+        )
+
     fifthPage = browser.find_elements_by_xpath(
         '/html/body/div[2]/div/div[3]/div/div[1]/div[11]/fieldset/button[4]')
     fifthPage[0].click()
@@ -411,10 +525,25 @@ def getPlayerFielding():
 
         #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + victoria[0].text + ',' + derrota[0].text + ',' + era[0].text + ',' + g[0].text + ',' + gs[0].text + ',' + sv[0].text + ',' + svo[0].text + ',' + dfip[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + dgavg[0].text + ',' + whip[0].text + '\n')
 
+        insert.playerFielding(
+            db,
+            jugador[0].a.text,
+            equipo[0].text,
+            pos[0].text,
+            rank[0].text,
+            juegos[0].text,
+            chances[0].text,
+            putout[0].text,
+            assists[0].text,
+            errors[0].text,
+            fpct[0].text,
+        )
+
     #f.close()
     browser.close()
+    db.close()
 
 
 getPlayerHitting()
-#getPlayerPitching()
-#getPlayerFielding()
+getPlayerPitching()
+getPlayerFielding()
