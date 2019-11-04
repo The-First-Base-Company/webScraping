@@ -31,9 +31,6 @@ def playerHitting(db, *args):
         mylist[9],
     )
 
-    print(insertPlayer)
-    print(insertPlayerStats)
-
     try:
         cursor.execute(insertPlayer)
         db.commit()
