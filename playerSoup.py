@@ -30,7 +30,7 @@ def getPlayerHitting(host, user, password, database):
     currentPage = 1
     totalPages = webpageSoup.find_all('button',
                                       {'class': 'paginationWidget-last'})
-    print(totalPages[0].text)
+    #print(totalPages[0].text)
 
     while (currentPage <= int(totalPages[0].text)):
 
@@ -64,9 +64,33 @@ def getPlayerHitting(host, user, password, database):
             sluggingPercent = row.find_all('td', {'class': 'dg-slg'})
             sumaPercent = row.find_all('td', {'class': 'dg-ops'})
 
+            player_bio = getPlayerInfo(jugador[0].a['href'])
+
+            foto = player_bio[0]
+            nombre = player_bio[1]
+            numero = player_bio[2]
+            altura = player_bio[3]
+            edad = player_bio[4]
+            nickname = player_bio[5]
+            nacimiento = player_bio[6]
+            draft_año = player_bio[7]
+            draft_equipo = player_bio[8]
+            draft_ronda = player_bio[9]
+            debut = player_bio[10]
+
             insert.playerHitting(
                 db,
-                jugador[0].a.text,
+                foto,
+                nombre,
+                numero,
+                altura,
+                edad,
+                nickname,
+                nacimiento,
+                draft_año,
+                draft_equipo,
+                draft_ronda,
+                debut,
                 equipo[0].text,
                 pos[0].text,
                 rank[0].text,
@@ -91,6 +115,7 @@ def getPlayerHitting(host, user, password, database):
     #f.close()
     browser.close()
     db.close()
+
 
 def getPlayerPitching(host, user, password, database):
 
@@ -146,9 +171,33 @@ def getPlayerPitching(host, user, password, database):
             dgavg = row.find_all('td', {'class': 'dg-avg'})
             whip = row.find_all('td', {'class': 'dg-whip'})
 
+            player_bio = getPlayerInfo(jugador[0].a['href'])
+
+            foto = player_bio[0]
+            nombre = player_bio[1]
+            numero = player_bio[2]
+            altura = player_bio[3]
+            edad = player_bio[4]
+            nickname = player_bio[5]
+            nacimiento = player_bio[6]
+            draft_año = player_bio[7]
+            draft_equipo = player_bio[8]
+            draft_ronda = player_bio[9]
+            debut = player_bio[10]
+
             insert.playerPitching(
                 db,
-                jugador[0].a.text,
+                foto,
+                nombre,
+                numero,
+                altura,
+                edad,
+                nickname,
+                nacimiento,
+                draft_año,
+                draft_equipo,
+                draft_ronda,
+                debut,
                 equipo[0].text,
                 rank[0].text,
                 g[0].text,
@@ -174,6 +223,7 @@ def getPlayerPitching(host, user, password, database):
     browser.close()
     db.close()
 
+
 def getPlayerFielding(host, user, password, database):
 
     db = pymysql.connect(host, user, password, database)
@@ -192,7 +242,7 @@ def getPlayerFielding(host, user, password, database):
 
     html = browser.page_source
     webpageSoup = bs.BeautifulSoup(html, 'html.parser')
-    time.sleep(3)
+    time.sleep(5)
     currentPage = 1
     totalPages = webpageSoup.find_all('button',
                                       {'class': 'paginationWidget-last'})
@@ -228,19 +278,21 @@ def getPlayerFielding(host, user, password, database):
             fpct = row.find_all('td', {'class': 'dg-fpct'})
             whip = row.find_all('td', {'class': 'dg-rf'})
 
-            #f.write(rank[0].text + ',' + '"' + jugador[0].a.text + '"' + ',' + equipo[0].text + ',' + pos[0].text + ',' + juegos[0].text + ',' + era[0].text + ',' + g[0].text + ',' + chances[0].text + ',' + putout[0].text + ',' + assists[0].text + ',' + errors[0].text + ',' + dgh[0].text + ',' + dgr[0].text + ',' + dger[0].text + ',' + dghr[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + fpct[0].text + ',' + whip[0].text + '\n')
+            player_bio = getPlayerInfo(jugador[0].a['href'])
+            nombre = player_bio[1]
+            numero = player_bio[2]
 
             insert.playerFielding(
                 db,
-                jugador[0].a.text,
-                equipo[0].text,
+                nombre,
+                numero,
+                pos[0].text,
                 rank[0].text,
                 chances[0].text,
                 putout[0].text,
                 assists[0].text,
                 errors[0].text,
                 fpct[0].text,
-                pos[0].text,
             )
 
         currentPage += 1
@@ -257,7 +309,123 @@ def getPlayerFielding(host, user, password, database):
     browser.close()
     db.close()
 
+
+def transformDate(date):
+    date = date.split("/")
+    #print(date)
+    if (len(date[0]) == 1):
+        date = date[2] + '-' + '0' + date[0] + '-' + date[1]
+    else:
+        date = date[2] + '-' + date[0] + '-' + date[1]
+    #print(date)
+    return date
+
+
+def calculateAge(date):
+    date = date.split("/")
+    #print(date)
+    age = 2019 - int(date[2])
+    #print(date)
+    return age
+
+
+def getPlayerInfo(playerURL):
+    my_url = "http://mlb.com" + playerURL
+
+    browser = webdriver.Firefox()
+    browser.get(my_url)
+    try:
+        html = browser.page_source
+        webpageSoup = bs.BeautifulSoup(html, 'html.parser')
+        time.sleep(3)
+
+        picture = webpageSoup.find('img', {'class': 'player-headshot'})['src']
+        name = webpageSoup.find('span', {
+            'class': 'player-header--vitals-name'
+        }).text
+        number = webpageSoup.find('span', {
+            'class': 'player-header--vitals-number'
+        }).text
+
+        height = webpageSoup.find('li',
+                                  {'class': 'player-header--vitals-height'})
+        height = height.text[height.text.find("/") + 1:len(height.text)]
+
+        missingAge = False
+
+        if (str(webpageSoup).find("Age: ") > 0):
+            age = webpageSoup.find('li', {
+                'class': 'player-header--vitals-age'
+            }).text.replace("Age: ", "")
+        else:
+            missingAge = True
+
+        bio = webpageSoup.find_all('ul', attrs={'class': None})
+        bio = bio[1].find_all('li')
+
+        #full_name = bio[0].text[bio[0].text.find(":") + 1 : len(bio[0].text)].strip()
+        #nickname = bio[1].text[bio[1].text.find(":") + 1 : len(bio[1].text)].strip()
+
+        #birth = bio[2].text[bio[2].text.find(":") + 1 : bio[2].text.find(":") + 12].strip()
+        #birth = transformDate(birth)
+        nickname = 'NULL'
+        birth = 'NULL'
+        draft_year = 'NULL'
+        draft_team = 'NULL'
+        draft_round = 'NULL'
+        debut = 'NULL'
+
+        i = 0
+        for info in bio:
+            if (bio[i].span.text == 'Nickname:'):
+                nickname = bio[i].text[bio[i].text.find(":") +
+                                       1:len(bio[i].text)].strip()
+            if (bio[i].span.text == 'Born:'):
+                birth = bio[i].text[bio[i].text.find(":") +
+                                    1:bio[i].text.find(":") + 12].strip()
+                birth = transformDate(birth)
+                if missingAge:
+                    age = bio[i].text[bio[i].text.find(":") +
+                                      1:bio[i].text.find(":") + 12].strip()
+                    age = calculateAge(age)
+            if (bio[i].span.text == 'Draft:'):
+                draft = bio[i].text[bio[i].text.find(":") +
+                                    1:len(bio[i].text)].strip().replace(
+                                        "Round:",
+                                        "").replace("Overall Pick:",
+                                                    "").split(",")
+                draft_year = draft[0].strip()
+                draft_team = draft[1].strip()
+                draft_round = draft[2].strip()
+            if (bio[i].span.text == 'Debut:'):
+                debut = bio[i].text[bio[i].text.find(":") +
+                                    1:len(bio[i].text)].strip()
+                debut = transformDate(debut)
+            i += 1
+        '''
+        draft = bio[3].text[bio[3].text.find(":") + 1 : len(bio[3].text)].strip().replace("Round:", "").replace("Overall Pick:", "").split(",")
+        draft_year = draft[0].strip()
+        draft_team = draft[1].strip()
+        draft_round = draft[2].strip()
+
+        debut = bio[5].text[bio[5].text.find(":") + 1 : len(bio[5].text)].strip()
+        debut = transformDate(debut)
+
+        '''
+        player_bio = [
+            picture, name, number, height, age, nickname, birth, draft_year,
+            draft_team, draft_round, debut
+        ]
+        browser.close()
+        return player_bio
+    except:
+        pass
+
+
+#print(getPlayerInfo("/team/player.jsp?lang=es&player_id=542255"))
+
+
 def getStats(host, user, password, database):
-    getPlayerHitting(host, user, password, database)
-    getPlayerPitching(host, user, password, database)
+    #getPlayerHitting(host, user, password, database)
+    #getPlayerPitching(host, user, password, database)
     getPlayerFielding(host, user, password, database)

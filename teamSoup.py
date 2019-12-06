@@ -44,7 +44,19 @@ def getTeamHitting(host, user, password, database):
         ops = row.find_all('td', {'class': 'dg-ops'})
 
         # f.write(rank[0].text + ',' + '"' + team[0].a.text + '"' + ',' + league[0].text + ',' + g[0].text + ',' + ab[0].text + ',' + r[0].text + ',' + h[0].text + ',' + g[0].text + ',' + dobles[0].text + ',' + triples[0].text + ',' + hr[0].text + ',' + rbi[0].text + ',' + bb[0].text + ',' + so[0].text + ',' + sb[0].text + ',' + cs[0].text + ',' + avg[0].text + ',' + obp[0].text + ',' + slg[0].text + ',' + ops[0].text + '\n')
-        insert.teamHitting(db, team[0].text, league[0].text, rank[0].text, g[0].text, avg[0].text, ab[0].text, r[0].text, h[0].text, hr[0].text, rank[0].text,)
+        insert.teamHitting(
+            db,
+            team[0].text,
+            league[0].text,
+            rank[0].text,
+            g[0].text,
+            avg[0].text,
+            ab[0].text,
+            r[0].text,
+            h[0].text,
+            hr[0].text,
+            rank[0].text,
+        )
     #f.close()
     browser.close()
     db.close()
@@ -149,11 +161,47 @@ def getTeamFielding(host, user, password, database):
             fpct[0].text,
             rank[0].text,
         )
-# f.close()
+
     browser.close()
     db.close()
 
+def getTeamInfo(host, user, password, database):
+    db = pymysql.connect(host, user, password, database)
+    print("getting teams ...")
+
+    my_url = "https://www.mlb.com/team"
+
+    browser = webdriver.Firefox()
+    browser.get(my_url)
+
+    html = browser.page_source
+    webpageSoup = bs.BeautifulSoup(html, 'html.parser')
+
+    photos = webpageSoup.find_all('div', {'class': 'p-image__image'})
+    info = webpageSoup.find_all('div', {'class': 'p-wysiwyg'})
+    names = webpageSoup.findAll('div', {'class': 'u-text-h4'})
+    j = 0
+
+    for i in photos:
+
+        name = names[j].text.strip()
+        logo = photos[j].img["data-srcset"]
+        logo = logo[logo.find("568w") + 5 : logo.find("320w")]
+
+        website = info[j].p.text
+        website = website[website.find("Phone:") + 21: website.find(".com") + 4]
+
+        estadio = str(info[j].p)
+        estadio = estadio.replace("<br/>", "/")
+        estadio = estadio[3: estadio.find("/")]
+
+        insert.teamInfo(db, logo, website, estadio, name);
+        j += 1
+
+    browser.close()
+
 def getStats(host, user, password, database):
-    getTeamHitting(host, user, password, database)
-    getTeamPitching(host, user, password, database)
-    getTeamFielding(host, user, password, database)
+    #getTeamHitting(host, user, password, database)
+    #getTeamPitching(host, user, password, database)
+    #getTeamFielding(host, user, password, database)
+    getTeamInfo(host, user, password, database)
